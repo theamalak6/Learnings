@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./client/  # Path to the frontend application Dockerfile
+      dockerfile: Dockerfile
+    ports:
+      - "8089:3000"  # Map port 3000 on host to port 3000 on container
+    networks:
+      - my_network
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./server/  # Path to the backend application Dockerfile
+      dockerfile: Dockerfile
+    ports:
+      - "4030:8000"  # Map port 4000 on host to port 4000 on container
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
